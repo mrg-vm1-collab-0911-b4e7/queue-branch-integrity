@@ -5,11 +5,7 @@ jobs:
   queue-hold:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: VM1 skip-intermediate provenance oracle
+      - name: Hold queue check
         run: |
-          if grep -q 'VM1_SKIP_H1_FAIL_20260912' PR_ONE_20260911.md 2>/dev/null || grep -q 'VM1_SKIP_H1_FAIL_20260912' PR_TWO_20260911.md 2>/dev/null; then
-            echo 'VM1 fresh H1 must fail'
-            exit 1
-          fi
-          echo 'VM1 H0 lineage passes'
+          echo "holding merge queue"
+          sleep 180

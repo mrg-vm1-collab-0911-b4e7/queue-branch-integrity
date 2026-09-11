@@ -1,20 +1,9 @@
-merge_queue:
-  mode: parallel
-  max_parallel_checks: 2
-  skip_intermediate_results: true
-
-scopes:
-  source:
-    files:
-      vm1-chain:
-        include:
-          - PR_ONE_20260911.md
-          - PR_TWO_20260911.md
-
 queue_rules:
   - name: default
-    merge_method: merge
-    batch_size: 1
+    merge_method: merge-batch
+    batch_size: 2
+    batch_max_wait_time: 10 min
+    allow_queue_branch_edit: false
     queue_conditions: []
     merge_conditions:
       - check-success = @github-actions/queue-hold
