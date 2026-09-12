@@ -1,0 +1,1 @@
+VM1 primary-authored CODEOWNERS precedence marker
