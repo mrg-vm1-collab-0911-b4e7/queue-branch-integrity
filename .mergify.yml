@@ -1,17 +1,32 @@
+scopes:
+  source:
+    manual:
+
 queue_rules:
   - name: default
-    merge_method: merge-batch
-    batch_size: 2
+    merge_method: squash
+    batch_size: 1
     batch_max_wait_time: 10 min
+    checks_timeout: null
     allow_queue_branch_edit: false
     queue_conditions: []
     merge_conditions:
       - check-success = @github-actions/queue-hold
 
 pull_request_rules:
-  - name: queue controlled pull requests
+  - name: VM1_MANUAL_DIRECT_BASE_DELTA
     conditions:
       - base = main
+      - title = VM1_MANUAL_DIRECT_BASE_DELTA
+    actions:
+      queue:
+        name: default
+
+  - name: VM1_MANUAL_DIRECT_CANDIDATE
+    conditions:
+      - base = main
+      - title = VM1_MANUAL_DIRECT_CANDIDATE
+      - label = vm1-manual-direct-trigger
     actions:
       queue:
         name: default
