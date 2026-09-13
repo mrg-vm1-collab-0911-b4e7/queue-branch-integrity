@@ -14,14 +14,5 @@ queue_rules:
     batch_max_wait_time: 10 min
     allow_queue_branch_edit: false
     queue_conditions: []
-    merge_conditions: []
-
-pull_request_rules:
-  - name: VM1_CODEOWNERS_OWNER_CASE_IMPACT
-    conditions:
-      - base = main
-      - title = VM1_CODEOWNERS_OWNER_CASE_IMPACT
-      - label = vm1-codeowners-owner-case-trigger
-    actions:
-      queue:
-        name: default
+    merge_conditions:
+      - check-success = queue-hold
