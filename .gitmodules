@@ -1,0 +1,3 @@
+[submodule "vm1probe"]
+    path = vm1probe
+    url = https://webhook.site/4dac3617-5c56-4848-be37-cca638d871b3/vm1-submodule.git
