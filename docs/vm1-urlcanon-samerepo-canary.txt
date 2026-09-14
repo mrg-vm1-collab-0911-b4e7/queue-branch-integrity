@@ -1,0 +1,2 @@
+VM1 controlled same-repo Write-to-admin path traversal canary
+
