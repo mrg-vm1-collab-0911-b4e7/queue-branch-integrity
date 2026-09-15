@@ -1,18 +1,11 @@
+merge_queue:
+  queue_controls_comment: false
 queue_rules:
-  - name: default
-    merge_method: squash
+  - name: vm1 overlapping freeze aggregation
     batch_size: 1
-    batch_max_wait_time: 10 min
-    allow_queue_branch_edit: false
-    queue_conditions: []
-    merge_conditions: []
-
-pull_request_rules:
-  - name: VM1_CODEOWNERS_OWNER_CASE_IMPACT
-    conditions:
-      - base = main
-      - title = VM1_CODEOWNERS_OWNER_CASE_IMPACT
-      - label = vm1-codeowners-owner-case-trigger
-    actions:
-      queue:
-        name: default
+    batch_max_wait_time: 1 sec
+    max_checks_retries: 1
+    queue_conditions:
+      - title = VM1_FREEZE_OVERLAP_AGGREGATION
+    merge_conditions:
+      - check-success = vm1-never-freeze-overlap-merge
