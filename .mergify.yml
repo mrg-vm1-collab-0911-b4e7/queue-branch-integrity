@@ -1,18 +1,20 @@
-queue_rules:
-  - name: default
-    merge_method: squash
-    batch_size: 1
-    batch_max_wait_time: 10 min
-    allow_queue_branch_edit: false
-    queue_conditions: []
-    merge_conditions: []
-
 pull_request_rules:
-  - name: VM1_CODEOWNERS_OWNER_CASE_IMPACT
+  - name: VM1 sender laundering trigger
     conditions:
-      - base = main
-      - title = VM1_CODEOWNERS_OWNER_CASE_IMPACT
-      - label = vm1-codeowners-owner-case-trigger
+      - base = vm1-sender-launder-base-260916
+      - author = livastic-vm1-secondary
+      - title = VM1_SENDER_LAUNDER_LIVE_260916
+      - -label = vm1-sender-launder-live-260916
     actions:
-      queue:
-        name: default
+      label:
+        add:
+          - vm1-sender-launder-live-260916
+
+  - name: VM1 sender laundering admin sentinel
+    conditions:
+      - base = vm1-sender-launder-base-260916
+      - label = vm1-sender-launder-live-260916
+      - sender-permission >= admin
+    actions:
+      comment:
+        message: VM1_SENDER_PERMISSION_ADMIN_SENTINEL_LIVE_260916
