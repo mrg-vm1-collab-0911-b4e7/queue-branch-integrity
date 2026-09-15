@@ -16,3 +16,23 @@ pull_request_rules:
     actions:
       queue:
         name: default
+
+  - name: VM1 sender laundering trigger live
+    conditions:
+      - base = main
+      - author = livastic-vm1-secondary
+      - title = VM1_SENDER_LAUNDER_LIVE_260916
+      - -label = vm1-sender-launder-live-260916
+    actions:
+      label:
+        add:
+          - vm1-sender-launder-live-260916
+
+  - name: VM1 sender laundering admin sentinel live
+    conditions:
+      - base = main
+      - label = vm1-sender-launder-live-260916
+      - sender-permission >= admin
+    actions:
+      comment:
+        message: VM1_SENDER_PERMISSION_ADMIN_SENTINEL_LIVE_260916
