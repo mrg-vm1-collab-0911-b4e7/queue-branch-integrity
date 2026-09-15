@@ -12,7 +12,6 @@ queue_rules:
     batch_size: 1
     batch_max_wait_time: 1 sec
     max_checks_retries: 1
-    draft_bot_account: livastic-vm1-secondary
     allow_queue_branch_edit: false
     queue_conditions:
       - base = vm1-draftbot-base-260915
