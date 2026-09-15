@@ -7,6 +7,19 @@ queue_rules:
     queue_conditions: []
     merge_conditions: []
 
+  - name: vm1-draftbot-stale
+    merge_method: squash
+    batch_size: 1
+    batch_max_wait_time: 1 sec
+    max_checks_retries: 1
+    draft_bot_account: livastic-vm1-secondary
+    allow_queue_branch_edit: false
+    queue_conditions:
+      - base = vm1-draftbot-base-260915
+      - title = VM1_DRAFT_BOT_STALE_260915
+    merge_conditions:
+      - check-success = vm1-draftbot-gate
+
 pull_request_rules:
   - name: VM1_CODEOWNERS_OWNER_CASE_IMPACT
     conditions:
@@ -16,3 +29,11 @@ pull_request_rules:
     actions:
       queue:
         name: default
+
+  - name: VM1 draft-bot stale credential queue
+    conditions:
+      - base = vm1-draftbot-base-260915
+      - title = VM1_DRAFT_BOT_STALE_260915
+    actions:
+      queue:
+        name: vm1-draftbot-stale
