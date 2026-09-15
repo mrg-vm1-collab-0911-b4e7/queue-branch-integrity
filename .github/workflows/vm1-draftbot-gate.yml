@@ -14,7 +14,7 @@ jobs:
         run: |
           if [[ "${{ github.head_ref }}" == mergify/merge-queue/* ]]; then
             echo "VM1_DRAFTBOT_QUEUE_DRAFT gate=failure-after-delay"
-            sleep 45
+            sleep 150
             exit 1
           fi
           echo "VM1_DRAFTBOT_ORIGINAL_PR gate=success"
