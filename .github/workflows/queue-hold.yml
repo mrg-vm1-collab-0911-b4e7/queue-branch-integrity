@@ -1,13 +1,11 @@
 name: Queue Hold
-'on':
+on:
   pull_request:
-permissions: {}
 jobs:
-  hold:
-    if: startsWith(github.head_ref, 'mergify/merge-queue/') == false && github.event.pull_request.title != 'VM1_DRAFTBOT_CONFIG_REVOKE_260915'
+  queue-hold:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo HOLD_START
+      - name: Hold queue check
+        run: |
+          echo "holding merge queue"
           sleep 180
-          echo HOLD_DONE
