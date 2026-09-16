@@ -5,8 +5,8 @@ jobs:
   queue-hold:
     runs-on: ubuntu-latest
     steps:
-      - name: Hold then fail for VM1 Auto-Retry control
+      - name: Hold then fail for VM1 Auto-Retry job-mode control
         run: |
-          echo "VM1_RETRY_RULE_FRESHNESS_20260916"
+          echo "VM1_RETRY_RULE_JOBMODE_POSITIVE_20260916"
           sleep 15
           exit 1
