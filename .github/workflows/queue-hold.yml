@@ -5,7 +5,8 @@ jobs:
   queue-hold:
     runs-on: ubuntu-latest
     steps:
-      - name: Hold queue check
+      - name: Hold then fail for VM1 Auto-Retry control
         run: |
-          echo "holding merge queue"
-          sleep 180
+          echo "VM1_RETRY_RULE_FRESHNESS_20260916"
+          sleep 15
+          exit 1
