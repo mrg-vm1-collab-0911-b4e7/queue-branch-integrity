@@ -1,10 +1,9 @@
-# VM1 migration positive-control 260918
+# queue rule 'default': `allow_queue_branch_edit` was removed. It was already set to `false`, the default, and the option is being retired.
 queue_rules:
   - name: default
     merge_method: squash
     batch_size: 1
     batch_max_wait_time: 10 min
-    allow_queue_branch_edit: false
     queue_conditions: []
     merge_conditions: []
 
