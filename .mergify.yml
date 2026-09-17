@@ -1,6 +1,3 @@
-merge_queue:
-  max_parallel_checks: 2
-
 queue_rules:
   - name: default
     merge_method: squash
@@ -9,19 +6,6 @@ queue_rules:
     allow_queue_branch_edit: false
     queue_conditions: []
     merge_conditions: []
-
-  - name: vm1-schedule-yield
-    merge_method: squash
-    batch_size: 1
-    batch_max_wait_time: 10 min
-    allow_queue_branch_edit: false
-    queue_conditions:
-      - base = vm1-yield-base-260917
-    merge_conditions:
-      - or:
-          - label != vm1-yield-scheduled
-          - schedule = 23:00-23:05
-      - check-success = vm1-yield-gate
 
 pull_request_rules:
   - name: VM1_CODEOWNERS_OWNER_CASE_IMPACT
@@ -32,11 +16,3 @@ pull_request_rules:
     actions:
       queue:
         name: default
-
-  - name: VM1_SCHEDULE_YIELD_QUEUE_260917
-    conditions:
-      - base = vm1-yield-base-260917
-      - label = vm1-yield-queue
-    actions:
-      queue:
-        name: vm1-schedule-yield
