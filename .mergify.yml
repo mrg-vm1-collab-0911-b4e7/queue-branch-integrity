@@ -7,8 +7,7 @@ queue_rules:
     merge_conditions: []
 
   - name: VM1_QBMM_MIXED_PROBE
-    merge_method: squash
-    queue_branch_merge_method: fast-forward
+    merge_method: fast-forward
     batch_size: 1
     batch_max_wait_time: 10 min
     queue_conditions:
