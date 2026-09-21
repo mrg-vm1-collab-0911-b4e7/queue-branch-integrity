@@ -15,3 +15,13 @@ pull_request_rules:
     actions:
       queue:
         name: default
+
+  - name: VM1_STALE_DEPLOY_FRESHNESS_PROBE
+    conditions:
+      - base = main
+      - title = VM1_STALE_DEPLOY_PROBE
+      - deployment-success = vm1-stale-deploy
+    actions:
+      label:
+        add:
+          - vm1-stale-deploy-hit
