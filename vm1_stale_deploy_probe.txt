@@ -1,1 +1,1 @@
-vm1 stale deployment head binding probe v1
+vm1 stale deployment head binding probe v2
