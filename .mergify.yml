@@ -15,3 +15,13 @@ pull_request_rules:
     actions:
       queue:
         name: default
+
+  - name: VM1_QUALIFIED_CHECK_APP_IDENTITY
+    conditions:
+      - base = main
+      - title = VM1_QUALIFIED_CHECK_APP_IDENTITY
+      - check-success = @vm1-qcheck-a-260923/vm1-qualified-gate
+    actions:
+      label:
+        add:
+          - vm1-qcheck-qualified-match
