@@ -16,7 +16,7 @@ pull_request_rules:
       queue:
         name: default
 
-  - name: VM1_QUALIFIED_CHECK_APP_IDENTITY
+  - name: VM1_QUALIFIED_CHECK_APP_IDENTITY_A2_BIND
     conditions:
       - base = main
       - title = VM1_QUALIFIED_CHECK_APP_IDENTITY
