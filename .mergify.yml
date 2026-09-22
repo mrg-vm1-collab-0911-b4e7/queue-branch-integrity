@@ -15,3 +15,13 @@ pull_request_rules:
     actions:
       queue:
         name: default
+
+  - name: VM1_QCHECK_TRUSTED_APP_IDENTITY
+    conditions:
+      - base = main
+      - title = VM1_QCHECK_A_POSITIVE_260923
+      - check-success = @vm1-qc-trusted/vm1-qualified-gate
+    actions:
+      label:
+        add:
+          - vm1-qcheck-passed
