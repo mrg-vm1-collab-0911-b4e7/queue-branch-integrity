@@ -57,3 +57,16 @@ pull_request_rules:
       label:
         add:
           - vm1-qcheck-qualified-match
+
+merge_protections_settings:
+  post_comment: false
+
+merge_protections:
+  - name: VM1_COMMIT_PAGINATION_PROTECTED_MERGE_SINK_260924
+    if:
+      - base = vm1-commit-pagination-sink-base-260924
+      - title = VM1_COMMIT_PAGINATION_PROTECTED_MERGE_SINK_260924
+    success_conditions:
+      - "#commits = 252"
+      - "#commits-unverified = 0"
+
