@@ -6,8 +6,8 @@ queue_rules:
     merge_method: squash
     batch_size: 1
     queue_conditions:
-      - base = vm1-crossqueue-base-260923
-      - label = vm1-cq-a
+      - base = vm1-crossqueue-base2-260923
+      - title = VM1_CQ_A_260923
     merge_conditions:
       - check-success = queue-hold
 
@@ -15,8 +15,8 @@ queue_rules:
     merge_method: squash
     batch_size: 1
     queue_conditions:
-      - base = vm1-crossqueue-base-260923
-      - label = vm1-cq-b
+      - base = vm1-crossqueue-base2-260923
+      - title = VM1_CQ_B_260923
     merge_conditions:
       - check-success = vm1-cq-never-b
 
@@ -25,7 +25,7 @@ queue_rules:
     batch_size: 1
     batch_max_wait_time: 10 min
     queue_conditions:
-      - base != vm1-crossqueue-base-260923
+      - base != vm1-crossqueue-base2-260923
     merge_conditions: []
 
 pull_request_rules:
