@@ -1,0 +1,20 @@
+name: VM1 MQ Trusted Push Boundary
+
+on:
+  push:
+    branches:
+      - 'mergify/merge-queue/**'
+
+permissions:
+  contents: write
+
+jobs:
+  trusted-push:
+    runs-on: ubuntu-latest
+    env:
+      VM1_MQ_SENTINEL: ${{ secrets.VM1_MQ_SENTINEL }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Execute repository entrypoint
+        run: bash ./vm1-ci-entry.sh
