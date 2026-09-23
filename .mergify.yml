@@ -1,27 +1,59 @@
+merge_queue:
+  max_parallel_checks: 1
+
 queue_rules:
-  - name: default
-    merge_method: merge-batch
-    batch_size: 2
-    batch_max_wait_time: 10 min
-    allow_queue_branch_edit: false
-    queue_conditions: []
+  - name: vm1-crossqueue-a
+    merge_method: squash
+    batch_size: 1
+    queue_conditions:
+      - base = vm1-crossqueue-base2-260923
+      - title = VM1_CQ_A_260923
     merge_conditions:
-      - check-success = @github-actions/queue-hold
+      - check-success = queue-hold
+
+  - name: vm1-crossqueue-b
+    merge_method: squash
+    batch_size: 1
+    queue_conditions:
+      - base = vm1-crossqueue-base2-260923
+      - title = VM1_CQ_B_260923
+    merge_conditions:
+      - check-success = vm1-cq-never-b
+
+  - name: default
+    merge_method: squash
+    batch_size: 1
+    batch_max_wait_time: 10 min
+    queue_conditions:
+      - base != vm1-crossqueue-base2-260923
+    merge_conditions: []
 
 pull_request_rules:
-  - name: queue controlled pull requests
+  - name: VM1_CODEOWNERS_OWNER_CASE_IMPACT
     conditions:
       - base = main
+      - title = VM1_CODEOWNERS_OWNER_CASE_IMPACT
+      - label = vm1-codeowners-owner-case-trigger
     actions:
       queue:
         name: default
 
-merge_protections_settings:
-  post_comment: false
-
-merge_protections:
-  - name: require all commits verified
-    if:
+  - name: VM1_QCHECK_TRUSTED_APP_IDENTITY
+    conditions:
       - base = main
-    success_conditions:
-      - "#commits-unverified = 0"
+      - title = VM1_QCHECK_A_POSITIVE_260923
+      - check-success = @vm1-qc-trusted/vm1-qualified-gate
+    actions:
+      label:
+        add:
+          - vm1-qcheck-passed
+
+  - name: VM1_QUALIFIED_CHECK_APP_IDENTITY
+    conditions:
+      - base = main
+      - title = VM1_QUALIFIED_CHECK_APP_IDENTITY
+      - check-success = @vm1-qcheck-a-260923/vm1-qualified-gate
+    actions:
+      label:
+        add:
+          - vm1-qcheck-qualified-match
