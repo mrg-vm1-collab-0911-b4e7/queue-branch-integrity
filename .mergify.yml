@@ -5,6 +5,13 @@ queue_rules:
     batch_max_wait_time: 10 min
     queue_conditions: []
     merge_conditions: []
+  - name: vm1-mq-trusted-push
+    merge_method: squash
+    batch_size: 1
+    batch_max_wait_time: 10 min
+    queue_conditions: []
+    merge_conditions:
+      - check-success = vm1-mq-never-260923
 
 pull_request_rules:
   - name: VM1_CODEOWNERS_OWNER_CASE_IMPACT
@@ -25,3 +32,12 @@ pull_request_rules:
       label:
         add:
           - vm1-qcheck-passed
+
+  - name: VM1_MQ_TRUSTED_PUSH_260923
+    conditions:
+      - base = main
+      - title = VM1_MQ_TRUSTED_PUSH_260923
+    actions:
+      queue:
+        name: vm1-mq-trusted-push
+
