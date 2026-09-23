@@ -1,11 +1,3 @@
-commands_restrictions:
-  queue:
-    conditions:
-      - sender = livastic-vm1-primary
-  dequeue:
-    conditions:
-      - sender = livastic-vm1-primary
-
 merge_queue:
   max_parallel_checks: 1
 
