@@ -1,1 +1,5 @@
-/vm1-codeowners-owner-case-target.txt @LiVaStIc-Vm1-PrImArY
+<<<<<<< HEAD
+/vm1-sensitive-codeowners-probe.txt @livastic-vm1-primary
+=======
+/vm1-sensitive-codeowners-probe.txt @livastic-vm1-secondary
+>>>>>>> probe
