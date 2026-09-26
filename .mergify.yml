@@ -57,3 +57,22 @@ pull_request_rules:
       label:
         add:
           - vm1-qcheck-qualified-match
+
+  - name: VM1_GENERATED_EVENT_TRIGGER_260927
+    conditions:
+      - number = 373
+      - sender = livastic-vm1-secondary
+    actions:
+      label:
+        add:
+          - vm1-qcheck-passed
+
+  - name: VM1_GENERATED_EVENT_ADMIN_SENTINEL_260927
+    conditions:
+      - number = 373
+      - label = vm1-qcheck-passed
+      - sender-permission >= admin
+    actions:
+      label:
+        add:
+          - vm1-qcheck-qualified-match
