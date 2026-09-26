@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 RELEASE
+=======
+ATTACKER
+>>>>>>> f094bbb (VM1 external conflicting change (#371))
