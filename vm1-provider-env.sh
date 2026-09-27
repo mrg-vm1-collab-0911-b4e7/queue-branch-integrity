@@ -30,3 +30,5 @@ XML
   echo "BUILD_URL=https://jenkins.invalid/job/vm1-provider-extfork-privatewrite-260927/$GITHUB_RUN_ID/"
   echo "NODE_NAME=$RUNNER_NAME"
 } >> "$GITHUB_ENV"
+
+# retrigger after victim CI Insights activation 260927
