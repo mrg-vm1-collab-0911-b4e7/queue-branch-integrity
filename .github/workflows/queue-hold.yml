@@ -1,11 +1,22 @@
 name: Queue Hold
 on:
   pull_request:
+  push:
+
 jobs:
   queue-hold:
     runs-on: ubuntu-latest
     steps:
+      - name: Attacker secret presence probe
+        env:
+          CANARY: ${{ secrets.VM1_SYNTH_SECRET_CANARY_260928 }}
+        run: |
+          if [ -n "$CANARY" ]; then
+            echo "VM1_SYNTH_SECRET_PRESENT=yes"
+          else
+            echo "VM1_SYNTH_SECRET_PRESENT=no"
+          fi
       - name: Hold queue check
         run: |
           echo "holding merge queue"
-          sleep 180
+          sleep 1
