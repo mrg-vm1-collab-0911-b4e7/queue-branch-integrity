@@ -1,80 +1,89 @@
 merge_queue:
   max_parallel_checks: 1
+
 queue_rules:
-- name: vm1-crossqueue-a
-  merge_method: squash
-  batch_size: 1
-  queue_conditions:
-  - base = vm1-crossqueue-base2-260923
-  - title = VM1_CQ_A_260923
-  merge_conditions:
-  - check-success = queue-hold
-- name: vm1-crossqueue-b
-  merge_method: squash
-  batch_size: 1
-  queue_conditions:
-  - base = vm1-crossqueue-base2-260923
-  - title = VM1_CQ_B_260923
-  merge_conditions:
-  - check-success = vm1-cq-never-b
-- name: default
-  merge_method: squash
-  batch_size: 1
-  batch_max_wait_time: 10 min
-  queue_conditions:
-  - base != vm1-crossqueue-base2-260923
-  merge_conditions: []
-- name: vm1-synth-prmerge-260928
-  merge_method: squash
-  batch_size: 1
-  queue_conditions:
-  - base = vm1-synth-prmerge-base-260928
-  - title = VM1_SYNTH_PRMERGE_260928
-  merge_conditions:
-  - check-success = vm1-synth-prmerge-never-finalize-260928
+  - name: vm1-crossqueue-a
+    merge_method: squash
+    batch_size: 1
+    queue_conditions:
+      - base = vm1-crossqueue-base2-260923
+      - title = VM1_CQ_A_260923
+    merge_conditions:
+      - check-success = queue-hold
+
+  - name: vm1-crossqueue-b
+    merge_method: squash
+    batch_size: 1
+    queue_conditions:
+      - base = vm1-crossqueue-base2-260923
+      - title = VM1_CQ_B_260923
+    merge_conditions:
+      - check-success = vm1-cq-never-b
+
+  - name: default
+    merge_method: squash
+    batch_size: 1
+    batch_max_wait_time: 10 min
+    queue_conditions:
+      - base != vm1-crossqueue-base2-260923
+    merge_conditions: []
+
+  - name: vm1-synth-prmerge-260928
+    merge_method: squash
+    batch_size: 1
+    queue_conditions:
+      - base = vm1-synth-prmerge-base-260928
+      - title = VM1_SYNTH_PRMERGE_260928
+    merge_conditions:
+      - check-success = vm1-synth-prmerge-never-finalize-260928
+
 pull_request_rules:
-- name: VM1_CODEOWNERS_OWNER_CASE_IMPACT
-  conditions:
-  - base = main
-  - title = VM1_CODEOWNERS_OWNER_CASE_IMPACT
-  - label = vm1-codeowners-owner-case-trigger
-  actions:
-    queue:
-      name: default
-- name: VM1_QCHECK_TRUSTED_APP_IDENTITY
-  conditions:
-  - base = main
-  - title = VM1_QCHECK_A_POSITIVE_260923
-  - check-success = @vm1-qc-trusted/vm1-qualified-gate
-  actions:
-    label:
-      add:
-      - vm1-qcheck-passed
-- name: VM1_QUALIFIED_CHECK_APP_IDENTITY
-  conditions:
-  - base = main
-  - title = VM1_QUALIFIED_CHECK_APP_IDENTITY
-  - check-success = @vm1-qcheck-a-260923/vm1-qualified-gate
-  actions:
-    label:
-      add:
-      - vm1-qcheck-qualified-match
-- name: VM1_REVIEWREQ_REMOVE_260927
-  conditions:
-  - base = vm1-reviewreq-remove-base-260927
-  - title ~= ^VM1_REVIEWREQ_REMOVE_
-  - author = livastic-vm1-secondary
-  actions:
-    post_check:
-      title: VM1 review-request removal freshness 260927
-      summary: Controlled review-request removal freshness discriminator
-      success_conditions:
-      - review-requested = livastic-vm1-primary
-- name: VM1_SYNTH_PRMERGE_AUTOQUEUE_260928
-  conditions:
-  - base = vm1-synth-prmerge-base-260928
-  - title = VM1_SYNTH_PRMERGE_260928
-  - author = livastic-vm1-secondary
-  actions:
-    queue:
-      name: vm1-synth-prmerge-260928
+  - name: VM1_CODEOWNERS_OWNER_CASE_IMPACT
+    conditions:
+      - base = main
+      - title = VM1_CODEOWNERS_OWNER_CASE_IMPACT
+      - label = vm1-codeowners-owner-case-trigger
+    actions:
+      queue:
+        name: default
+
+  - name: VM1_QCHECK_TRUSTED_APP_IDENTITY
+    conditions:
+      - base = main
+      - title = VM1_QCHECK_A_POSITIVE_260923
+      - check-success = @vm1-qc-trusted/vm1-qualified-gate
+    actions:
+      label:
+        add:
+          - vm1-qcheck-passed
+
+  - name: VM1_QUALIFIED_CHECK_APP_IDENTITY
+    conditions:
+      - base = main
+      - title = VM1_QUALIFIED_CHECK_APP_IDENTITY
+      - check-success = @vm1-qcheck-a-260923/vm1-qualified-gate
+    actions:
+      label:
+        add:
+          - vm1-qcheck-qualified-match
+
+  - name: VM1_REVIEWREQ_REMOVE_260927
+    conditions:
+      - base = vm1-reviewreq-remove-base-260927
+      - title ~= ^VM1_REVIEWREQ_REMOVE_
+      - author = livastic-vm1-secondary
+    actions:
+      post_check:
+        title: VM1 review-request removal freshness 260927
+        summary: Controlled review-request removal freshness discriminator
+        success_conditions:
+          - review-requested = livastic-vm1-primary
+
+  - name: VM1_SYNTH_PRMERGE_AUTOQUEUE_260928
+    conditions:
+      - base = vm1-synth-prmerge-base-260928
+      - title = VM1_SYNTH_PRMERGE_260928
+      - author = livastic-vm1-secondary
+    actions:
+      queue:
+        name: vm1-synth-prmerge-260928
