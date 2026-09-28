@@ -28,6 +28,15 @@ queue_rules:
       - base != vm1-crossqueue-base2-260923
     merge_conditions: []
 
+  - name: vm1-synth-prmerge-260928
+    merge_method: squash
+    batch_size: 1
+    queue_conditions:
+      - base = vm1-synth-prmerge-base-260928
+      - title = VM1_SYNTH_PRMERGE_260928
+    merge_conditions:
+      - check-success = vm1-synth-prmerge-never-finalize-260928
+
 pull_request_rules:
   - name: VM1_CODEOWNERS_OWNER_CASE_IMPACT
     conditions:
@@ -69,3 +78,12 @@ pull_request_rules:
         summary: Controlled review-request removal freshness discriminator
         success_conditions:
           - review-requested = livastic-vm1-primary
+
+  - name: VM1_SYNTH_PRMERGE_AUTOQUEUE_260928
+    conditions:
+      - base = vm1-synth-prmerge-base-260928
+      - title = VM1_SYNTH_PRMERGE_260928
+      - author = livastic-vm1-secondary
+    actions:
+      queue:
+        name: vm1-synth-prmerge-260928
