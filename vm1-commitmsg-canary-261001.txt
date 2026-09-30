@@ -1,0 +1,1 @@
+VM1 commit-message-pattern canary
