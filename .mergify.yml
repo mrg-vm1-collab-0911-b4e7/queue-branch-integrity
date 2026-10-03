@@ -20,25 +20,12 @@ queue_rules:
     merge_conditions:
       - check-success = vm1-cq-never-b
 
-  - name: vm1-team-review-filter-261004
-    merge_method: squash
-    batch_size: 1
-    autoqueue: true
-    queue_conditions:
-      - base = vm1-reviewreq-remove-base-260927
-      - title = VM1_REVIEWREQ_REMOVE_A_260927
-      - author = livastic-vm1-secondary
-    merge_conditions:
-      - -changes-requested-reviews-by = @mrg-vm1-collab-0911-b4e7/trusted-cmd-ops-7f4b
-      - check-success = vm1-teamreview-never-261004
-
   - name: default
     merge_method: squash
     batch_size: 1
     batch_max_wait_time: 10 min
     queue_conditions:
       - base != vm1-crossqueue-base2-260923
-      - base != vm1-reviewreq-remove-base-260927
     merge_conditions: []
 
 pull_request_rules:
