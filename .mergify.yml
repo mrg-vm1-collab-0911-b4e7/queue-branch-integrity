@@ -79,3 +79,12 @@ pull_request_rules:
     actions:
       queue:
         name: default
+
+  - name: VM1_CLASSIC_REQUIRED_DEPLOY_261005
+    conditions:
+      - base = vm1-copy-stale-dest-261003
+      - title = VM1_CLASSIC_DEPLOY_BYPASS_261005
+      - author = livastic-vm1-secondary
+    actions:
+      merge:
+        method: merge
