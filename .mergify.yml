@@ -20,6 +20,20 @@ queue_rules:
     merge_conditions:
       - check-success = vm1-cq-never-b
 
+  - name: vm1-crjson-duparray-261006
+    merge_method: merge-batch
+    batch_size: 2
+    batch_max_wait_time: 1 minute
+    queue_conditions:
+      - base = vm1-crjson-duparray-base-261006
+      - title ~= ^VM1_CRJSON_DUPARRAY_[AB]_261006$
+    merge_conditions:
+      - check-success = vm1-crjson-duparray-never
+    conflict_resolvers:
+      - paths:
+          - vm1-crjson-duparray-policy.json
+        strategy: json
+
   - name: default
     merge_method: squash
     batch_size: 1
