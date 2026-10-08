@@ -1,0 +1,26 @@
+name: VM1 CLI103 trusted push impact 261008
+
+on:
+  push:
+    branches:
+      - vm1-headsdwim-read-base-261008
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  canary:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Controlled attacker-code canary
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ ! -f critical/vm1-cli103-impact.sh ]; then
+            echo "impact script absent: baseline no-op"
+            exit 0
+          fi
+          bash critical/vm1-cli103-impact.sh
