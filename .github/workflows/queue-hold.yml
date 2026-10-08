@@ -1,11 +1,40 @@
-name: Queue Hold
+name: VM1 Heads DWIM Gate 261008
+
 on:
   pull_request:
+    branches:
+      - vm1-headsdwim-public-base-261008
+
+permissions:
+  contents: read
+
 jobs:
-  queue-hold:
-    runs-on: ubuntu-latest
+  vm1-headsdwim-gate:
+    name: vm1-headsdwim-gate
+    runs-on: ubuntu-24.04
     steps:
-      - name: Hold queue check
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Detect Mergify scopes
+        id: scopes
+        uses: Mergifyio/gha-mergify-ci@v26
+        with:
+          action: scopes
+          mergify_cli_version: 2026.10.3
+          base: ${{ github.base_ref }}
+          head: ${{ github.head_ref }}
+
+      - name: Enforce critical scope
+        env:
+          CRITICAL: ${{ fromJSON(steps.scopes.outputs.scopes).critical }}
         run: |
-          echo "holding merge queue"
-          sleep 180
+          echo "VM1_HEADSDWIM_CRITICAL=${CRITICAL}"
+          if [ "${CRITICAL}" = "true" ]; then
+            echo "critical scope present: fail required gate"
+            exit 1
+          fi
+          echo "critical scope absent: pass required gate"
