@@ -93,3 +93,13 @@ pull_request_rules:
     actions:
       queue:
         name: default
+
+scopes:
+  source:
+    files:
+      critical:
+        include:
+          - 'critical/**'
+      ignored:
+        include:
+          - 'ignored/**'
