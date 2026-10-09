@@ -79,18 +79,6 @@ pull_request_rules:
         add:
           - vm1-qcheck-qualified-match
 
-  - name: VM1_REVIEWREQ_REMOVE_260927
-    conditions:
-      - base = vm1-reviewreq-remove-base-260927
-      - title ~= ^VM1_REVIEWREQ_REMOVE_
-      - author = livastic-vm1-secondary
-    actions:
-      post_check:
-        title: VM1 review-request removal freshness 260927
-        summary: Controlled review-request removal freshness discriminator
-        success_conditions:
-          - review-requested = livastic-vm1-primary
-
   - name: VM1_BUILDKITE_SCOPE_IMPACT_261004
     conditions:
       - "number = 378"
@@ -126,3 +114,12 @@ conflict_resolvers:
     directories:
       - /pkg
 
+merge_protections:
+  # Migrated from post_check rule 'VM1_REVIEWREQ_REMOVE_260927'. Dropped options with no equivalent: title, summary
+  - name: VM1_REVIEWREQ_REMOVE_260927
+    if:
+      - base = vm1-reviewreq-remove-base-260927
+      - title ~= ^VM1_REVIEWREQ_REMOVE_
+      - author = livastic-vm1-secondary
+    success_conditions:
+      - review-requested = livastic-vm1-primary
