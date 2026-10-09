@@ -126,3 +126,13 @@ conflict_resolvers:
       - yarncond/yarn.lock
     strategy: yarn
 
+merge_protections_settings:
+  post_comment: false
+
+merge_protections:
+  - name: VM1_COMMIT_PAGINATION_ENFORCE_ADMINS_AB_260925
+    if:
+      - base = vm1-pagination-enforce-admins-base-260925
+    success_conditions:
+      - "#commits-unverified = 0"
+
