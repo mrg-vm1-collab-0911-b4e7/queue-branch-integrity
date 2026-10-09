@@ -1,0 +1,8 @@
+{
+  "name": "vm1-yarn-cond",
+  "private": true,
+  "packageManager": "yarn@4.10.3",
+  "optionalDependencies": {
+    "minimist": "1.2.5"
+  }
+}
