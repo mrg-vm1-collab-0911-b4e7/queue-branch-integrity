@@ -9,7 +9,6 @@ queue_rules:
     queue_conditions:
       - base = vm1-tsimport2-base-261010
       - title ~= ^VM1_TSIMPORT2_[AB]_261010$
-    autoqueue: true
     merge_conditions:
       - check-success = vm1-tsimport2-never-261010
 
@@ -126,3 +125,7 @@ conflict_resolvers:
     directories:
       - /pkg
 
+merge_protections_settings:
+  auto_merge_conditions:
+    - base = vm1-tsimport2-base-261010
+    - title ~= ^VM1_TSIMPORT2_[AB]_261010$
